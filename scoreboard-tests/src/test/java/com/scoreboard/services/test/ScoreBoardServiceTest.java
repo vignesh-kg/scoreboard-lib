@@ -11,6 +11,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import setup.BaseTest;
 
 import java.util.stream.Collectors;
@@ -26,6 +27,7 @@ public class ScoreBoardServiceTest extends BaseTest {
     @Test
     @Order(1)
     @DisplayName("Create New Match")
+    @DirtiesContext
     public void test_createNewMatch_success() {
         Match newMatch = scoreBoardService.startNewMatch("Mexico", "Canada");
         Assertions.assertNotNull(newMatch);
@@ -41,6 +43,7 @@ public class ScoreBoardServiceTest extends BaseTest {
     @Test
     @Order(3)
     @DisplayName("Throws MatchExistException as a match already exist for HomeTeam and AwayTeam")
+    @DirtiesContext
     public void test_CreateNewMatch_throw_matchExist() {
         Assertions.assertThrows(MatchExistException.class, () -> {
             IntStream.range(0, 10).parallel().forEach(_ -> {
@@ -52,6 +55,7 @@ public class ScoreBoardServiceTest extends BaseTest {
     @Test
     @Order(2)
     @DisplayName("To check no match having same Match Id")
+    @DirtiesContext
     public void test_duplicate_matchId() {
         IntStream.range(0, 100).parallel().forEach(num -> {
             scoreBoardService.startNewMatch("Hteam" + num, "Ateam" + num);
@@ -65,6 +69,7 @@ public class ScoreBoardServiceTest extends BaseTest {
     @Test
     @Order(4)
     @DisplayName("Finish a match from score board")
+    @DirtiesContext
     public void test_finish_match_success() {
         IntStream.range(0, 100).parallel().forEach(num -> {
             scoreBoardService.startNewMatch("Hteam" + num, "Ateam" + num);
@@ -77,6 +82,7 @@ public class ScoreBoardServiceTest extends BaseTest {
     @Test
     @Order(5)
     @DisplayName("Throws MatchDoesnotExistException as a match doesn't exist for HomeTeam and AwayTeam")
+    @DirtiesContext
     public void test_FinishMatch_throw_match_not_Exist() {
         Assertions.assertThrows(MatchDoesNotExistException.class, () -> {
             IntStream.range(0, 10).parallel().forEach(_ -> {
@@ -88,6 +94,7 @@ public class ScoreBoardServiceTest extends BaseTest {
     @Test
     @Order(6)
     @DisplayName("Update score of Teams")
+    @DirtiesContext
     public void test_Update_score_success() {
         Match match = scoreBoardService.startNewMatch("Mexico", "Canada");
         match.getHomeTeam().setScore(0);
@@ -102,6 +109,7 @@ public class ScoreBoardServiceTest extends BaseTest {
     @Test
     @Order(7)
     @DisplayName("Throws MatchDoesnotExistException as a match doesn't exist for HomeTeam and AwayTeam")
+    @DirtiesContext
     public void test_UpdateScore_throw_match_not_Exist() {
         Assertions.assertThrows(MatchDoesNotExistException.class, () -> {
             IntStream.range(0, 10).parallel().forEach(_ -> {
