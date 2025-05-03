@@ -1,8 +1,11 @@
 package setup;
 
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
+import com.scoreboard.config.ServicesConfig;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest(classes = {ServicesConfig.class})
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public abstract class BaseTest {
 }
